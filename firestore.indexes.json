@@ -1,0 +1,37 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "articles",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {"fieldPath": "company_id", "order": "ASCENDING"},
+        {"fieldPath": "published_at", "order": "DESCENDING"}
+      ]
+    },
+    {
+      "collectionGroup": "articles", 
+      "queryScope": "COLLECTION",
+      "fields": [
+        {"fieldPath": "is_processed", "order": "ASCENDING"},
+        {"fieldPath": "scraped_at", "order": "ASCENDING"}
+      ]
+    },
+    {
+      "collectionGroup": "articles",
+      "queryScope": "COLLECTION", 
+      "fields": [
+        {"fieldPath": "company_name", "order": "ASCENDING"},
+        {"fieldPath": "published_at", "order": "DESCENDING"}
+      ]
+    },
+    {
+      "collectionGroup": "classifications",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {"fieldPath": "category", "order": "ASCENDING"},
+        {"fieldPath": "confidence_score", "order": "DESCENDING"}
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

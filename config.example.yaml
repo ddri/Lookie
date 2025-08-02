@@ -1,0 +1,31 @@
+firestore:
+  project_id: "your-firebase-project-id"
+  credentials_file: ""  # Leave empty to use Application Default Credentials
+
+server:
+  port: 8080
+  host: "0.0.0.0"
+
+scraping:
+  default_delay: "10s"
+  max_retries: 3
+  timeout: "30s"
+  user_agent: "Lookie/1.0 (Quantum News Monitoring)"
+
+ai:
+  gemini_api_key: "${GEMINI_API_KEY}"
+  max_tokens: 1000
+  temperature: 0.1
+
+notifications:
+  smtp_host: "smtp.gmail.com"
+  smtp_port: 587
+  smtp_username: "${SMTP_USERNAME}"
+  smtp_password_env: "SMTP_PASSWORD"
+  from_email: "your-email@gmail.com"
+  to_email: "alerts@yourcompany.com"
+
+
+logging:
+  level: "info"
+  format: "json"

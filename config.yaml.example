@@ -1,0 +1,31 @@
+database:
+  path: "./data/lookie.db"
+  
+server:
+  port: 8080
+  host: "localhost"
+  
+scraping:
+  default_delay: "10s"
+  max_retries: 3
+  timeout: "30s"
+  user_agent: "Lookie Bot 1.0 (Quantum News Monitoring)"
+  
+ai:
+  provider: "gemini"
+  model: "gemini-pro"
+  api_key_env: "GEMINI_API_KEY"
+  max_tokens: 4096
+  
+notifications:
+  smtp_host: "smtp.gmail.com"
+  smtp_port: 587
+  smtp_username: "your_email@gmail.com"
+  smtp_password_env: "GMAIL_APP_PASSWORD"
+  from_email: "your_email@gmail.com"
+  to_email: "your_email@gmail.com"
+  
+logging:
+  level: "info"
+  format: "json"
+  output: "stdout"
