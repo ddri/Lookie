@@ -100,3 +100,16 @@ func (f *FirestoreDB) CheckArticleExists(contentHash string) (bool, error) {
 	
 	return true, nil // Document exists
 }
+
+// UpdateCompanyRSSURL updates the RSS URL for a specific company
+func (f *FirestoreDB) UpdateCompanyRSSURL(companyID string, rssURL string) error {
+	_, err := f.client.Collection("companies").Doc(companyID).Update(f.ctx, []firestore.Update{
+		{Path: "rss_url", Value: rssURL},
+	})
+	if err != nil {
+		return fmt.Errorf("failed to update RSS URL for company %s: %w", companyID, err)
+	}
+	
+	log.Printf("Updated RSS URL for company %s: %s", companyID, rssURL)
+	return nil
+}

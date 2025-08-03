@@ -1,5 +1,5 @@
 # Build stage
-FROM golang:1.21-alpine AS builder
+FROM golang:1.23-alpine AS builder
 
 WORKDIR /app
 
@@ -13,14 +13,14 @@ RUN go mod download
 # Copy source code
 COPY . .
 
-# Build the application
-RUN CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -o lookie cmd/lookie/main.go
+# Build the application for Firestore-only deployment
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags="-w -s" -o lookie ./cmd/lookie
 
 # Runtime stage
 FROM alpine:latest
 
-# Install sqlite and ca-certificates
-RUN apk --no-cache add ca-certificates sqlite
+# Install ca-certificates only (no SQLite needed for Firestore)
+RUN apk --no-cache add ca-certificates wget
 
 WORKDIR /app
 
@@ -28,14 +28,9 @@ WORKDIR /app
 RUN addgroup -g 1001 -S lookie && \
     adduser -S lookie -u 1001 -G lookie
 
-# Create data directory
-RUN mkdir -p /app/data && \
-    chown -R lookie:lookie /app
-
-# Copy binary and migrations
+# Copy binary and configuration
 COPY --from=builder /app/lookie .
-COPY --from=builder /app/migrations ./migrations/
-COPY --from=builder /app/config.example.yaml ./config.yaml
+COPY --from=builder /app/config.production.yaml ./config.yaml
 
 # Change ownership
 RUN chown -R lookie:lookie /app
